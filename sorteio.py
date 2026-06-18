@@ -48,7 +48,8 @@ def extrair_dados_doc():
                             'Sugerido por': integrante_atual,
                             'Título': titulo.strip(),
                             'Autor': autor.strip(),
-                            'Status': 'Não lido'
+                            'Status': 'Não lido',
+                            'Peso': 1
                         })
                 except Exception:
                     print(f"Erro ao processar a linha: {linha}")
@@ -56,7 +57,30 @@ def extrair_dados_doc():
     df = pd.DataFrame(lista_livros)
     return df
 
+def sortear_livro(df):
+    if df.empty:
+        print("A lista de livros está vazia. Não é possível realizar o sorteio.")
+        return None
+    
+    livros_nao_lidos = df[df['Status'] == 'Não lido']
+    if livros_nao_lidos.empty:
+        print("Não há livros não lidos para sortear.")
+        return None
+    
+    lista_indices = livros_nao_lidos.index.tolist()
+    lista_pesos = livros_nao_lidos['Peso'].tolist()
+
+    sorteio = random.choices(lista_indices, weights=lista_pesos, k=1)
+    linha_sorteada = livros_nao_lidos.loc[sorteio[0]]
+    titulo = linha_sorteada['Título']
+    autor = linha_sorteada['Autor']
+    sugerido_por = linha_sorteada['Sugerido por']
+    return f"{titulo} - {autor} (sugerido por {sugerido_por})"
+
 if __name__ == "__main__":
     dados_clube = extrair_dados_doc()
     if dados_clube is not None: 
         dados_clube.to_csv("lista_livros.csv", index=False, encoding='utf-8-sig')
+        
+        sorteado = sortear_livro(dados_clube)
+        print(f"O livro sorteado é: {sorteado}")

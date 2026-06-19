@@ -53,7 +53,7 @@ def extrair_dados_doc():
                     livro_duplicado = None
 
                     for livro in lista_livros:
-                        if livro['titulo'] == titulo_limpo:
+                        if livro['titulo'].lower() == titulo_limpo.lower():
                             livro_duplicado = livro
                             break
                     
@@ -70,6 +70,10 @@ def extrair_dados_doc():
                         livro_duplicado['peso'] += 1
                         # adiciona o nome das integrantes que sugeriram o mesmo livro
                         livro_duplicado['sugerido_por'] += f", {integrante_atual}"
+
+                        if len(autor_limpo) > len(livro_duplicado['autor']):
+                            livro_duplicado['autor'] = autor_limpo
+
 
                 except Exception:
                     print(f"Erro ao processar a linha: {linha}")

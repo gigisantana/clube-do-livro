@@ -2,13 +2,12 @@
 CAMI,Tudo sobre o amor,Bell Hooks,Não lido,1
 FER,A sucessora,Carolina Nabuco,Não lido,1
 GIO,O Talentoso Ripley,Patricia Highsmith,Não lido,1
-JULIA,Oração para desaparecer,Socorro Acioli,Não lido,1
+"JULIA, BIA BOECHAT",Oração para desaparecer,Socorro Acioli,Não lido,2
 LAYANI,A Maldição do Mar,Shea Ernshawn,Não lido,1
-RAFA,Não fossem as sílabas do sábado,Mariana Salomão Carrara,Não lido,1
+"RAFA, TAILINE",Não fossem as sílabas do sábado,Mariana Salomão Carrara,Não lido,2
 GABI,A pequena livraria dos sonhos,Jenny Colgan,Não lido,1
 KHADIJAH,Meu Pé de Laranja Lima,José Mauro de Vasconcellos,Não lido,1
 GIO SANTANA,A Inquilina Silenciosa,Clemence Michallon,Não lido,1
-BIA BOECHAT,Oração para desaparecer,Socorro Acioli,Não lido,1
 TAILINE,Cem anos de solidão,Gabriel Garcia Marques,Não lido,1
 CAROL,Mil Vezes Amor,Lynn Painter,Não lido,1
 ANDRESSA,Uma dama dora dos patrões,Julia Quinn,Não lido,1
@@ -27,7 +26,7 @@ ANDRESSA,O caso da governanta,Courtney Milan,Não lido,1
 CAMI,Siga Como Um Rio,Shelley Read,Não lido,1
 FER,Quarto de Despejo,Carolina Maria de Jesus,Não lido,1
 GIO,Shutter Island,Dennis Lehane,Não lido,1
-JULIA,O tempo das cerejas,Montserrat Roig,Não lido,1
+"JULIA, RAFA",O tempo das cerejas,Montserrat Roig,Não lido,2
 LAYANI,Uma Família Feliz,Raphael Montes,Não lido,1
 RAFA,Doce inimiga minha,Marcela Serrano,Não lido,1
 GABI,Como arruinar um casamento,Alison Espach,Não lido,1
@@ -50,8 +49,8 @@ TAILINE,o que resta de nós,Virgínia Grimaldi,Não lido,1
 ANDRESSA,A pequena livraria dos corações solitários,Annie Darling,Não lido,1
 CAMI,DEZ MIL SÓISDE VOLTA A HIROSHIMA,RENANCARVALHO,Não lido,1
 FER,A mulher do Século,Patrick Dennis,Não lido,1
-GIO,A morte de Ivan Ilitch,Liev Tolstoi,Não lido,1
-JULIA,O avesso da pele,Jeferson Tenório,Não lido,1
+"GIO, FER, JULIA",A morte de Ivan Ilitch,Liev Tolstoi,Não lido,3
+"JULIA, GIO",O avesso da pele,Jeferson Tenório,Não lido,2
 LAYANI,1984,George Orwell,Não lido,1
 RAFA,O quarto de Giovanni,James Baldwin,Não lido,1
 GABI,Em outra vida talvez?,Taylor Jenkins Reid,Não lido,1
@@ -81,19 +80,15 @@ TAILINE,A gente mira no amor e acerta na solidão,Ana Suy,Não lido,1
 CAMI,Maquina de leite,Szlvia Molnar,Não lido,1
 FER,As vantagens de ser invisível,Stephen Chbosky,Não lido,1
 GIO,Antes de Dormir,S.J. Watson,Não lido,1
-JULIA,A hora da estrela,Clarice Lispector,Não lido,1
+"JULIA, GABI",A hora da estrela,Clarice Lispector,Não lido,2
 LAYANI,Sapato de salto,Lygia Bojunga,Não lido,1
 RAFA,Os abismos,Pilar Quintana,Não lido,1
 GABI,Silêncio no coração dos pássaros,Lénia Rufino,Não lido,1
 KHADIJAH,Nós: O Atlântico em Solitário,Tamara Klink,Não lido,1
-TAILINE,Não fossem as sílabas do sábado,Mariana Carrara,Não lido,1
 CAMI,Nihonjin,Oscar Nakasato,Não lido,1
-FER,A morte de Ivan Ilitch,Lev Tolstói,Não lido,1
 GIO,Nunca Me Deixes,Kazuo Ishiguro,Não lido,1
-JULIA,A morte de Ivan Ilitch,Tolstói,Não lido,1
 LAYANI,A lista de convidados,Lucy Foley,Não lido,1
 RAFA,Caminhando com os mortos,Micheliny Verunschk,Não lido,1
-GABI,A hora da estrela,Clarice Lispector,Não lido,1
 KHADIJAH,Viver é prejudicial à saúde,Jamil Snege,Não lido,1
 CAMI,Vida e Morte de M. J. Gonzaga de Sá,Lima Barreto,Não lido,1
 FER,A paixão segundo G.H,Clarice Lispector,Não lido,1
@@ -115,19 +110,22 @@ RAFA,"O cozer das pedras, o roer dos ossos",Patrick Torres,Não lido,1
 GABI,Sete anos entre nós,Ashley Poston,Não lido,1
 FER,Êxtase da transformação,Stefan Zweig,Não lido,1
 GIO,28 chances,Mel Maryns,Não lido,1
-RAFA,O tempo das cerejas,Montserrat Roig,Não lido,1
 GABI,O que o vento sussurra,Amy Harmon,Não lido,1
 FER,A outra volta do  parafuso,Henry James,Não lido,1
 GIO,Olhai os lírios do campo,Erico Verissimo,Não lido,1
 RAFA,Coisas presentes demais,Flávia Péret,Não lido,1
+GABI,Assim na terra como embaixo da terra,Ana Paula Maia,Não lido,1
 GIO,Os suicidas,Raphael Montes,Não lido,1
 RAFA,Um amor incômodo,Elena Ferrante,Não lido,1
+GABI,Mentiras que contamos,Philippe Besson,Não lido,1
 GIO,Imperfeitos,Christina Lauren,Não lido,1
 RAFA,Eu sei por que o pássaro canta na gaiola,maya angelou,Não lido,1
+GABI,A natureza da mordida,Carla Madeira,Não lido,1
 GIO,A Estrada,Cormac McCarthy,Não lido,1
 RAFA,Morangos mofados,Caio Fernando Abreu,Não lido,1
-GIO,O avesso da pele,Jeferson Tenório,Não lido,1
+GABI,Memórias do Subsolo,Fiódor Dostoiévski,Não lido,1
 RAFA,Proclamem nas montanhas,James Baldwin,Não lido,1
+GABI,Kitchen,Banana Yoshimoto,Não lido,1
 GIO,Agosto,Rubem Fonseca,Não lido,1
 RAFA,Outras vidas que não a minha,Emmanuel Carrère,Não lido,1
 GIO,Nove Noites,Bernardo Carvalho,Não lido,1

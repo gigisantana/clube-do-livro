@@ -41,16 +41,31 @@ def extrair_dados_doc():
                 # se tem hífen, será separado em título e autor
                 try:
                     titulo, autor = texto_celula.split("-", 1)
+                    titulo_limpo = titulo.strip()
+                    autor_limpo = autor.strip()
+                    integrante_atual = integrantes[index]
+                    # variável para verificar se o livro já foi sugerido por outra integrante
+                    livro_duplicado = None
 
-                    if index < len(integrantes):
-                        integrante_atual = integrantes[index]
-                        lista_livros.append({
-                            'Sugerido por': integrante_atual,
-                            'Título': titulo.strip(),
-                            'Autor': autor.strip(),
-                            'Status': 'Não lido',
-                            'Peso': 1
-                        })
+                    for livro in lista_livros:
+                        if livro['Título'] == titulo_limpo:
+                            livro_duplicado = livro
+                            break
+                    
+                    if livro_duplicado is None:
+                            lista_livros.append({
+                                'Sugerido por': integrante_atual,
+                                'Título': titulo_limpo,
+                                'Autor': autor_limpo,
+                                'Status': 'Não lido',
+                                'Peso': 1
+                            })
+                    else:
+                        # soma 1 ao peso do livro se ele já estiver em alguma lista
+                        livro_duplicado['Peso'] += 1
+                        # adiciona o nome das integrantes que sugeriram o mesmo livro
+                        livro_duplicado['Sugerido por'] += f", {integrante_atual}"
+                            
                 except Exception:
                     print(f"Erro ao processar a linha: {linha}")
                     continue

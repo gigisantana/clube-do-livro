@@ -3,6 +3,11 @@ import random
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from supabase import create_client, Client
+
+SUPABASE_URL = "https://verblizvjotairyleqtw.supabase.co"
+SUPABASE_KEY = "sb_publishable__wdMzDQPgL7QFVEdU4T3zg_7VBUIxVy"
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 URL_DOCS = "https://docs.google.com/document/d/e/2PACX-1vSi86kbA0bT2Ham0UvmwCJCi8itcHuFXH71Soqko2PpUYtAHJ87YnlF597--rPeOc07RxDjLuIFGXk_/pub"
 
@@ -48,24 +53,24 @@ def extrair_dados_doc():
                     livro_duplicado = None
 
                     for livro in lista_livros:
-                        if livro['Título'] == titulo_limpo:
+                        if livro['titulo'] == titulo_limpo:
                             livro_duplicado = livro
                             break
                     
                     if livro_duplicado is None:
                             lista_livros.append({
-                                'Sugerido por': integrante_atual,
-                                'Título': titulo_limpo,
-                                'Autor': autor_limpo,
-                                'Status': 'Não lido',
-                                'Peso': 1
-                            })
+                            'sugerido_por': integrante_atual,
+                            'titulo': titulo_limpo,
+                            'autor': autor_limpo,
+                            'status': 'Não lido',
+                            'peso': 1
+                        })
                     else:
                         # soma 1 ao peso do livro se ele já estiver em alguma lista
-                        livro_duplicado['Peso'] += 1
+                        livro_duplicado['peso'] += 1
                         # adiciona o nome das integrantes que sugeriram o mesmo livro
-                        livro_duplicado['Sugerido por'] += f", {integrante_atual}"
-                            
+                        livro_duplicado['sugerido_por'] += f", {integrante_atual}"
+
                 except Exception:
                     print(f"Erro ao processar a linha: {linha}")
                     continue
@@ -77,33 +82,42 @@ def sortear_livro(df):
         print("A lista de livros está vazia. Não é possível realizar o sorteio.")
         return None
     
-    livros_nao_lidos = df[df['Status'] == 'Não lido']
+    livros_nao_lidos = df[df['status'] == 'Não lido']
     if livros_nao_lidos.empty:
         print("Não há livros não lidos para sortear.")
         return None
     
     lista_indices = livros_nao_lidos.index.tolist()
-    lista_pesos = livros_nao_lidos['Peso'].tolist()
+    lista_pesos = livros_nao_lidos['peso'].tolist()
 
     sorteio = random.choices(lista_indices, weights=lista_pesos, k=1)
     linha_sorteada = livros_nao_lidos.loc[sorteio[0]]
-    titulo = linha_sorteada['Título']
-    autor = linha_sorteada['Autor']
-    sugerido_por = linha_sorteada['Sugerido por']
+    titulo = linha_sorteada['titulo']
+    autor = linha_sorteada['autor']
+    sugerido_por = linha_sorteada['sugerido_por']
     return (f"{titulo} - {autor} (sugerido por {sugerido_por})", sorteio[0])
 
-def atualizar_status(df, indice, novo_status):
-    if indice in df.index:
-        df.at[indice, 'Status'] = novo_status
-        print(f"Status do livro na linha {indice} atualizado para '{novo_status}'.")
-    else:
-        print(f"Livro não encontrado na lista.")
+def atualizar_status(idlivro, novo_status = "Lido"):
+    try:
+        supabase.table('livro').update({'status': novo_status}).eq('id', int(idlivro)).execute()
+    except Exception as e:
+        print(f"Erro ao atualizar status do livro: {e}")
+        
+def sincronizar_supabase(df):
+    df_pra_supabase = df.drop(columns=['status'], errors='ignore')
+    # transforma o df em uma lista de dicionários, e cada dicionário representa um livro
+    livros_prontos = df_pra_supabase.to_dict(orient='records')
+    # usa a coluna de titulo pra evitar duplicidade, apenas atualizando o existente
+    supabase.table('livro').upsert(livros_prontos, on_conflict=['titulo']).execute()
+
 
 if __name__ == "__main__":
     dados_clube = extrair_dados_doc()
-    if dados_clube is not None: 
-        dados_clube.to_csv("lista_livros.csv", index=False, encoding='utf-8-sig')
+    if dados_clube is not None:
+        sincronizar_supabase(dados_clube) 
+        resposta = supabase.table('livro').select('*').eq('status', 'Não lido').execute()
+        df_atualizado = pd.DataFrame(resposta.data)
         
-        livro_sorteado, indice_sorteado = sortear_livro(dados_clube)
+        livro_sorteado, indice_sorteado = sortear_livro(df_atualizado)
         print(f"O livro sorteado é: {livro_sorteado}")
-        atualizar_status(dados_clube, indice_sorteado, "Lido")
+        atualizar_status(indice_sorteado, "Lido")

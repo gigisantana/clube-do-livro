@@ -82,27 +82,20 @@ def sortear_livro(df):
         print("A lista de livros está vazia. Não é possível realizar o sorteio.")
         return None
     
-    livros_nao_lidos = df[df['status'] == 'Não lido']
-    if livros_nao_lidos.empty:
-        print("Não há livros não lidos para sortear.")
-        return None
-    
-    lista_indices = livros_nao_lidos.index.tolist()
-    lista_pesos = livros_nao_lidos['peso'].tolist()
+    lista_indices = df.index.tolist()
+    lista_pesos = df['peso'].tolist()
 
     sorteio = random.choices(lista_indices, weights=lista_pesos, k=1)
-    linha_sorteada = livros_nao_lidos.loc[sorteio[0]]
-    titulo = linha_sorteada['titulo']
-    autor = linha_sorteada['autor']
-    sugerido_por = linha_sorteada['sugerido_por']
-    return (f"{titulo} - {autor} (sugerido por {sugerido_por})", sorteio[0])
+    linha_sorteada = df.loc[sorteio[0]]
+    
+    return linha_sorteada['titulo'], linha_sorteada['id']
 
 def atualizar_status(idlivro, novo_status = "Lido"):
     try:
         supabase.table('livro').update({'status': novo_status}).eq('id', int(idlivro)).execute()
     except Exception as e:
         print(f"Erro ao atualizar status do livro: {e}")
-        
+
 def sincronizar_supabase(df):
     df_pra_supabase = df.drop(columns=['status'], errors='ignore')
     # transforma o df em uma lista de dicionários, e cada dicionário representa um livro

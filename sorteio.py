@@ -75,12 +75,20 @@ def sortear_livro(df):
     titulo = linha_sorteada['Título']
     autor = linha_sorteada['Autor']
     sugerido_por = linha_sorteada['Sugerido por']
-    return f"{titulo} - {autor} (sugerido por {sugerido_por})"
+    return (f"{titulo} - {autor} (sugerido por {sugerido_por})", sorteio[0])
+
+def atualizar_status(df, indice, novo_status):
+    if indice in df.index:
+        df.at[indice, 'Status'] = novo_status
+        print(f"Status do livro na linha {indice} atualizado para '{novo_status}'.")
+    else:
+        print(f"Livro não encontrado na lista.")
 
 if __name__ == "__main__":
     dados_clube = extrair_dados_doc()
     if dados_clube is not None: 
         dados_clube.to_csv("lista_livros.csv", index=False, encoding='utf-8-sig')
         
-        sorteado = sortear_livro(dados_clube)
-        print(f"O livro sorteado é: {sorteado}")
+        livro_sorteado, indice_sorteado = sortear_livro(dados_clube)
+        print(f"O livro sorteado é: {livro_sorteado}")
+        atualizar_status(dados_clube, indice_sorteado, "Lido")

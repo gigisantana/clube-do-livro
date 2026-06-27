@@ -8,9 +8,6 @@ export default function App() {
   const [livroSorteado, setLivroSorteado] = useState(null);
   
   const buscarLivrosDoBanco = async () => {
-  // 1. ADICIONE ESSE LOG AQUI:
-  console.log("🚀 1. A função buscarLivrosDoBanco foi disparada!");
-
     try {      
       const { data, error } = await supabase.from("livro").select("*");
       
@@ -28,7 +25,6 @@ export default function App() {
   };
 
   useEffect(() => {
-  // 3. ADICIONE ESSE LOG AQUI:
     console.log("🎬 3. O useEffect rodou assim que a página nasceu!");
     buscarLivrosDoBanco();
   }, []);
@@ -37,12 +33,30 @@ export default function App() {
     buscarLivrosDoBanco();
   };
 
+  const lidarComSorteio = () => {
+    if (livros.length === 0) {
+      alert("Não há livros para sortear!");
+      return;
+    }
+    let caixinha = [];
+    livros.forEach((livro) => {
+      const peso = livro.peso || 1; 
+      for (let i = 0; i < livro.peso; i++) {
+        caixinha.push(livro);
+      }
+    });
+    const livroSorteado = caixinha[Math.floor(Math.random() * caixinha.length)];
+    setLivroSorteado(livroSorteado);
+  };
+
   return (
     <div className="min-h-screen bg-brand-cream text-brand-dark">
         
         {/* ================= SEÇÃO 1: CABEÇALHO ================= */}
         <Cabecalho 
-        onSincronizar={lidarComSincronizacao}  />
+        onSincronizar={lidarComSincronizacao} 
+        onSortear={lidarComSorteio}
+         />
 
       <main className="max-w-4xl mx-auto px-4 py-12 md:px-8 space-y-12">
         {/* ================= SEÇÃO 2: CARD DE DESTAQUE ================= */}

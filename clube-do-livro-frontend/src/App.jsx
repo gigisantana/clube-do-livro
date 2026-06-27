@@ -33,7 +33,7 @@ export default function App() {
     buscarLivrosDoBanco();
   };
 
-  const lidarComSorteio = () => {
+  const lidarComSorteio = async () => {
     if (livros.length === 0) {
       alert("Não há livros para sortear!");
       return;
@@ -41,12 +41,16 @@ export default function App() {
     let caixinha = [];
     livros.forEach((livro) => {
       const peso = livro.peso || 1; 
-      for (let i = 0; i < livro.peso; i++) {
+      for (let i = 0; i < peso; i++) {
         caixinha.push(livro);
       }
     });
     const livroSorteado = caixinha[Math.floor(Math.random() * caixinha.length)];
     setLivroSorteado(livroSorteado);
+    const { error } = await supabase
+      .from("livro")
+      .update({ status: "sorteado" })
+      .eq("id", livroSorteado.id);
   };
 
   return (

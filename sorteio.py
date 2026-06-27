@@ -81,18 +81,18 @@ def extrair_dados_doc():
     df = pd.DataFrame(lista_livros)
     return df
 
-def sortear_livro(df):
-    if df.empty:
-        print("A lista de livros está vazia. Não é possível realizar o sorteio.")
-        return None
+# def sortear_livro(df):
+#     if df.empty:
+#         print("A lista de livros está vazia. Não é possível realizar o sorteio.")
+#         return None
     
-    lista_indices = df.index.tolist()
-    lista_pesos = df['peso'].tolist()
+#     lista_indices = df.index.tolist()
+#     lista_pesos = df['peso'].tolist()
 
-    sorteio = random.choices(lista_indices, weights=lista_pesos, k=1)
-    linha_sorteada = df.loc[sorteio[0]]
+#     sorteio = random.choices(lista_indices, weights=lista_pesos, k=1)
+#     linha_sorteada = df.loc[sorteio[0]]
     
-    return linha_sorteada['titulo'], linha_sorteada['id']
+#     return linha_sorteada['titulo'], linha_sorteada['id']
 
 def atualizar_status(idlivro, novo_status = "Lido"):
     try:
@@ -111,10 +111,4 @@ def sincronizar_supabase(df):
 if __name__ == "__main__":
     dados_clube = extrair_dados_doc()
     if dados_clube is not None:
-        sincronizar_supabase(dados_clube) 
-        resposta = supabase.table('livro').select('*').eq('status', 'Não lido').execute()
-        df_atualizado = pd.DataFrame(resposta.data)
-        
-        livro_sorteado, indice_sorteado = sortear_livro(df_atualizado)
-        print(f"O livro sorteado é: {livro_sorteado}")
-        atualizar_status(indice_sorteado, "Lido")
+        sincronizar_supabase(dados_clube)
